@@ -1,0 +1,64 @@
+-- rides.amusement_ride definition
+
+CREATE TABLE `amusement_ride` (
+  `amusement_ride_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amusement_ride_name` varchar(100) NOT NULL,
+  `amusement_ride_img` blob NOT NULL,
+  `amusement_ride_longitude` varchar(100) NOT NULL,
+  `amusement_ride_latitude` varchar(100) NOT NULL,
+  `ride_category_id` int(11) NOT NULL,
+  `thriller_rating` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `support_id` int(11) NOT NULL,
+  `theme_id` int(11) DEFAULT NULL,
+  `theme_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`amusement_ride_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施表格';
+
+-- rides.maintenance definition
+
+CREATE TABLE `maintenance` (
+  `maintenance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amusement_ride_id` int(11) NOT NULL,
+  `maintenance_category_id` int(11) NOT NULL,
+  `maintenance_begin` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `maintenance_end` timestamp NOT NULL DEFAULT current_timestamp(),
+  `maintenance_result` varchar(100) NOT NULL,
+  `update_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`maintenance_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施維護詳情';
+
+-- rides.maintenance_category definition
+
+CREATE TABLE `maintenance_category` (
+  `maintenance_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `maintenance_category_name` varchar(100) NOT NULL,
+  `maintenance_category_des` varchar(100) NOT NULL,
+  PRIMARY KEY (`maintenance_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='維修類型';
+
+-- rides.ride_category definition
+
+CREATE TABLE `ride_category` (
+  `ride_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ride_category_name` varchar(100) NOT NULL,
+  `ride_category_description` varchar(100) NOT NULL,
+  `height_requirement` int(11) NOT NULL,
+  PRIMARY KEY (`ride_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施類型';
+
+-- rides.ride_support definition
+
+CREATE TABLE `ride_support` (
+  `amusement_ride_id` int(11) NOT NULL,
+  `support_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施對應特殊支援';
+
+-- rides.support definition
+
+CREATE TABLE `support` (
+  `support_id` int(11) NOT NULL AUTO_INCREMENT,
+  `support_category_name` varchar(100) NOT NULL,
+  `support_category_description` varchar(100) NOT NULL,
+  PRIMARY KEY (`support_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施特殊支援類型';
