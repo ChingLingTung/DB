@@ -100,3 +100,5 @@ CREATE TABLE `restaurant_reservation` (
   `starting_time` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`restaurant_reservation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='餐廳預約系統';
+--新增設施描述欄位
+ALTER TABLE rides.amusement_ride ADD amusement_ride_description varchar(100) NOT NULL;
