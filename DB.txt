@@ -10,8 +10,8 @@ CREATE TABLE `amusement_ride` (
   `thriller_rating` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `support_id` int(11) NOT NULL,
-  `theme_id` int(11) DEFAULT NULL,
-  `theme_name` varchar(100) DEFAULT NULL,
+  `theme_id` int(11) NOT NULL,
+  `theme_name` varchar(100) NOT NULL,
   PRIMARY KEY (`amusement_ride_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施表格';
 
