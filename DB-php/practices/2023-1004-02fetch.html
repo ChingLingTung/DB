@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="number" id="in_a" value="12"> +
+  <input type="number" id="in_b" value="34">
+  <button onclick="loadData()">=</button>
+  <div id="info"></div>
+
+  <script>
+
+    function loadData(){
+      const a = document.querySelector('#in_a').value;
+      const b = document.querySelector('#in_b').value;
+
+      fetch(`20231002-11a-plus-b.php?a=${a}&b=${b}`)
+      // 指令只有一句時可以省略{}，省略{}會有return功能，但如果把=>之後的指令用{}包起來則會喪失return功能，需要在額外於=>後加上return
+      // 原句：.then((r)=>{return r.text();})
+      .then((r)=>r.text())
+      .then((txt)=>{
+        document.querySelector('#info').innerHTML = txt;
+      })
+      .catch(ex=>console.log(ex))
+    }
+  </script>
+</body>
+</html>

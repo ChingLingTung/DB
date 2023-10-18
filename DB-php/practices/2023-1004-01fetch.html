@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="number" id="in_a" value="12"> +
+  <input type="number" id="in_b" value="34">
+  <button onclick="loadData()">=</button>
+  <div id="info"></div>
+
+  <script>
+    // fetch為不同步，傳送a>d>b>c;
+    function loadData(){
+      const a = document.querySelector('#in_a').value;
+      const b = document.querySelector('#in_b').value;
+      console.log('a');
+      fetch(`20231002-11a-plus-b.php?a=${a}&b=${b}`)
+      .then((r)=>{
+      console.log('b');
+      console.log({r});
+      return r.text();
+      })
+      .then((txt)=>{
+        console.log('c');
+        document.querySelector('#info').innerHTML = txt;
+      })
+      .catch(ex=>console.log(ex))
+      console.log('d');
+    }
+  </script>
+</body>
+</html>

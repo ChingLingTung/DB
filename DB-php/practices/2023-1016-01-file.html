@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 要有input的file才能上傳資料，multiple可同時上傳多筆資料，若沒加則只能上傳一筆 -->
+    <input type="file" onchange="f(event)" multiple/>
+
+    <script>
+      const f = (e) => {
+        const el = e.currentTarget;
+
+        console.log(el.files);
+      };
+    </script>
+  </body>
+</html>
