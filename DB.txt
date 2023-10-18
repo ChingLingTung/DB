@@ -62,3 +62,41 @@ CREATE TABLE `support` (
   `support_category_description` varchar(100) NOT NULL,
   PRIMARY KEY (`support_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施特殊支援類型';
+
+--20231018
+ALTER TABLE rides.amusement_ride MODIFY COLUMN amusement_ride_img VARCHAR(100) NOT NULL;
+
+-- rides.shop definition
+
+CREATE TABLE `shop` (
+  `shop_id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(100) NOT NULL,
+  `shop_longitude` varchar(100) NOT NULL,
+  `shop_latitude` varchar(100) NOT NULL,
+  `shop_img` varchar(100) NOT NULL,
+  `shop_type_id` int(11) NOT NULL,
+  `shop_type_name` varchar(100) NOT NULL,
+  `seat` int(11) NOT NULL,
+  `eating_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`shop_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店的表格';
+-- rides.shop_opentime definition
+
+CREATE TABLE `shop_opentime` (
+  `shop_id` int(11) NOT NULL,
+  `open_week` varchar(100) NOT NULL,
+  `open_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `close_time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店營業時間';
+-- rides.restaurant_reservation definition
+
+CREATE TABLE `restaurant_reservation` (
+  `restaurant_reservation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `adult` int(11) NOT NULL,
+  `child` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `starting_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`restaurant_reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='餐廳預約系統';
