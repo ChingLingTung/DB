@@ -1,6 +1,6 @@
 <?php
-// fm32k6這支php檔案所在的位置並設定以$dir表示
-$dir = __DIR__ . '/../uploads/';
+// 取得這支php檔案所在的位置並設定以$dir表示
+$dir = __DIR__ . '/../upload_img/';
 // 避免用戶傳垃圾檔案，只允許三種圖檔格式
 $exts = [
   'image/jpeg' => '.jpg',
@@ -47,4 +47,6 @@ if (!empty($_FILES) and !empty($_FILES['photos'])) {
 
 header('Content-Type: application/json');
 echo json_encode($output);
+echo json_encode($_FILES);
+
 
