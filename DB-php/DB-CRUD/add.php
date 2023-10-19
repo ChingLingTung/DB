@@ -28,11 +28,11 @@ $title='新增設施資料';
                 <img src="" alt="" id="myimg" width="100%" />
             </div>
             <!--要加hidden表單才會隱藏-->
-            <form name="imgform" hidden>
+            <!-- <form name="imgform" style="display:none"> -->
                 <input type="file" id="amusement_ride_img" name="amusement_ride_img" />
-            </form>
+            <!-- </form> -->
             <!-- 如果想改樣式，可以將原始的表單隱藏，另外用div設置按鈕(可以是文字也可以是圖片) -->
-            <div class="mt-2" style="cursor: pointer;" onclick="document.imgform.amusement_ride_img.click()"><i class="fa-solid fa-arrow-up-from-bracket"></i>上傳檔案</div>
+            <div class="mt-2" style="cursor: pointer;" onclick="uploadFile()"><i class="fa-solid fa-arrow-up-from-bracket"></i>上傳檔案</div>
             <div class="form-text"></div>
             </div>            
             <div class="mb-3">
@@ -167,7 +167,10 @@ $title='新增設施資料';
     // 定義uploadFile()
     function uploadFile() {
         // 將圖片的值設定給FormData沒有外觀的表單
-        const fd = new FormData(document.imgform);
+        // const img = new uploadFile(document.amusement_ride_img);
+        // const fd = new FormData(document.imgform);
+        let fd = new FormData();
+        fd.append('amusement_ride_img', document.getElementById('amusement_ride_img').files[0]);
         // 用post的方法把表單內容傳給upload-img-api-1.php這支php檔
         fetch("upload-img-api-1.php", {
             method: "POST",
@@ -180,7 +183,7 @@ $title='新增設施資料';
             // 如果data取得success值
             if (data.success) {
               // 將這張圖片myimg的src設定為路徑(/php/uploads/)+完整檔名(data.file)
-                myimg.src = "/DB-php/upload_img/" + data.file;
+                myimg.src = data.file;
             }
             });
         }

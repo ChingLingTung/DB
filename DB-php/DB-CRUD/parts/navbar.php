@@ -21,13 +21,13 @@ $pageName='';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link <?= $pageName=='list'? 'active':'' ?>" href="/DB-php/address_book/list.php">設施資料清單</a>
+              <a class="nav-link <?= $pageName=='list'? 'active':'' ?>" href="./list.php">設施資料清單</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?= $pageName=='add'? 'active':'' ?>" href="/DB-php/address_book/add.php">新增設施資料</a>
+              <a class="nav-link <?= $pageName=='add'? 'active':'' ?>" href="./add.php">新增設施資料</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?= $pageName=='cate2'? 'active':'' ?>" href="/DB-php/address_book/cate2.php">二層選單</a>
+              <a class="nav-link <?= $pageName=='cate2'? 'active':'' ?>" href="./cate2.php">二層選單</a>
             </li>
           </ul>
           <ul class="navbar-nav mb-2 mb-lg-0">

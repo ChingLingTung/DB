@@ -1,6 +1,6 @@
 <?php
 // 設定這支php檔案所在的位置並設定以$dir表示
-$dir = __DIR__ . '/../uploads_img/';
+$dir = __DIR__ . '/../upload_img/';
 // 避免用戶傳垃圾檔案，只允許三種圖檔格式
 $exts = [
   'image/jpeg' => '.jpg',
@@ -34,7 +34,7 @@ if (!empty($_FILES) and !empty($_FILES['amusement_ride_img']) and $_FILES['amuse
     ) {
       // 檔案傳送之後$output陣列中的值變更，success變成true，file值設定為amusement_ride_img的name
       $output['success'] = true;
-      $output['file'] = $_FILES['amusement_ride_img']['name'];
+      $output['file'] = $dir . $f. $ext;//$_FILES['amusement_ride_img']['name'];
     }
   }
 }
