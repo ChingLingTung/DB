@@ -1,6 +1,6 @@
 <?php
-// fm32k6這支php檔案所在的位置並設定以$dir表示
-$dir = __DIR__ . '/../uploads/';
+// 設定這支php檔案所在的位置並設定以$dir表示
+$dir = __DIR__ . '/../uploads_img/';
 // 避免用戶傳垃圾檔案，只允許三種圖檔格式
 $exts = [
   'image/jpeg' => '.jpg',
@@ -15,26 +15,26 @@ $output = [
   'file' => ''
 ];
 // 如果檔案存在(有傳檔案)且檔案的內容也存在
-if (!empty($_FILES) and !empty($_FILES['avatar']) and $_FILES['avatar']['error']==0) {
+if (!empty($_FILES) and !empty($_FILES['amusement_ride_img']) and $_FILES['amusement_ride_img']['error']==0) {
   
-  if (!empty( $exts[$_FILES['avatar']['type']] )) {
+  if (!empty( $exts[$_FILES['amusement_ride_img']['type']] )) {
     // 設定上傳的檔案的副檔名
-    $ext = $exts[$_FILES['avatar']['type']];
+    $ext = $exts[$_FILES['amusement_ride_img']['type']];
 
     # 透過uniqid()生成13碼不重複隨機編碼搭配sha1()生成長度共40的隨機的主檔名並設定該主檔名為$f
-    $f = sha1($_FILES['avatar']['name']. uniqid());
+    $f = sha1($_FILES['amusement_ride_img']['name']. uniqid());
 
     if (
     // 使用move_uploaded_file()將上傳的檔案移動到指定位置
       move_uploaded_file(
-        $_FILES['avatar']['tmp_name'],
+        $_FILES['amusement_ride_img']['tmp_name'],
         // 位置及完整檔名
         $dir . $f. $ext
       )
     ) {
-      // 檔案傳送之後$output陣列中的值變更，success變成true，file值設定為avatar的name
+      // 檔案傳送之後$output陣列中的值變更，success變成true，file值設定為amusement_ride_img的name
       $output['success'] = true;
-      $output['file'] = $_FILES['avatar']['name'];
+      $output['file'] = $_FILES['amusement_ride_img']['name'];
     }
   }
 }

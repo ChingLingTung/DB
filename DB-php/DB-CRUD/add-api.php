@@ -29,51 +29,87 @@ $output = [
 // 在檔頭告訴用戶端,傳送的這份資料格式為 JSON
 header('Content-Type: application/json');
 // 設定若姓名和信箱的欄位沒有填寫(包含填寫空白)
-if(empty($_POST['name']) or empty($_POST['email'])){
-  // 輸出錯誤訊息error{'form':'缺少欄位資料'}
-  $output['errors']['form'] = '缺少欄位資料';
-  // 將此錯誤訊息以JSON格式輸出
-  echo json_encode($output);
-  // 離開(不執行填寫資料傳送指令)
-  exit;
-}
-// 如果沒有填則設定是空字串
-$name = $_POST['name']?? '';
-$email = $_POST['email']?? '';
-$mobile = $_POST['mobile'] ?? '';
-$birthday = $_POST['birthday'] ?? '';
-$address = $_POST['address'] ?? '';
+$isPass = true;
+  if(empty($_POST['amusement_ride_name']))
+    {// {檢查不通過
+      $isPass = false;
+    // 輸出錯誤訊息error{'form':''}
+      $output['errors']['amusement_ride_name'] = '請填寫設施名稱';
+    }
+  if(empty($_POST['amusement_ride_img']))
+    {
+      $isPass = false;
+      $output['errors']['img'] = '請上傳設施圖片';
+    }
+  if(empty($_POST['amusement_ride_longitude']))
+    {
+      $isPass = false;
+      $output['errors']['longitude'] = '請填寫設施經度';
+    }  
+  if(empty($_POST['amusement_ride_latitude']))
+    {
+      $isPass = false;
+      $output['errors']['latitude'] = '請填寫設施緯度';
+    }  
+  if(empty($_POST['ride_category_id']))
+    {
+      $isPass = false;
+      $output['errors']['ride_category_id'] = '請選擇設施種類';
+    }
+  if(empty($_POST['thriller_rating']))
+    {
+      $isPass = false;
+      $output['errors']['thriller_rating'] = '請選擇設施刺激程度';
+    }
+    if(empty($_POST['support_id']))
+    {
+      $isPass = false;
+      $output['errors']['support_id'] = '請選擇設施支援類型';
+    }
+  if(empty($_POST['theme_name']))
+    {
+      $isPass = false;
+      $output['errors']['theme_name'] = '請選擇設施主題名稱';
+    }
+  if(empty($_POST['amusement_ride_description']))
+    {
+      $isPass = false;
+      $output['errors']['amusement_ride_description'] = '請填寫設施相關敘述';
+    }
+  
 // TODO: 資料在寫入之前, 要檢查格式
 // 可以用的方法
 // trim(): 去除內容頭尾的空白
 // strlen(): 查看字串的長度(英數字)
 // mb_strlen(): 查看字串的長度(中文韓文日文等非英系字)
-$isPass = true;
-// 檢查信箱資料格式，如果格式錯誤，回報email格式錯誤
-if(! filter_var($email, FILTER_VALIDATE_EMAIL)){
-  $isPass = false;
-  $output['errors']['email'] = 'email 格式錯誤';
-}
+
+
 // 如果沒有通過檢查不傳送資料
 if(! $isPass){
   echo json_encode($output);
   exit;
 }
 // sql語法設定，一個欄位對應一個問號，NOW()是sql本身可以取得當下時間的方法，取得時間直接帶入欄位內容
-$sql = "INSERT INTO `address_book`(
-  `name`, `email`, `mobile`, `birthday`, `address`, `created_at`
+$sql = "INSERT INTO `amusement_ride`(
+   `amusement_ride_name`, `amusement_ride_img`, `amusement_ride_longitude`, `amusement_ride_latitude`, `ride_category_id`,`thriller_rating`,`support_id`,`created_at`,`theme_id`,`theme_name`,`amusement_ride_description`
   ) VALUES (
-    ?, ?, ?, ?, ?, NOW()
+    ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?
   )";
 // 因上述的sql內容不完整(有問號)，因此這邊不能使用query，要改用prepare讓資料"準備"，資料會檢查
 $stmt = $pdo->prepare($sql);
 // 真正執行上述的sql指令，對應的所有欄位名稱都要列出
 $stmt->execute([
-  $_POST['name'],
-  $_POST['email'],
-  $_POST['mobile'],
-  $_POST['birthday'],
-  $_POST['address'],
+
+  $_POST['amusement_ride_name'],
+  $_POST['amusement_ride_img'],
+  $_POST['amusement_ride_longitude'],
+  $_POST['amusement_ride_latitude'],
+  $_POST['ride_category_id'],
+  $_POST['thriller_rating'],
+  $_POST['support_id'],
+  $_POST['theme_id'],
+  $_POST['theme_name'],
+  $_POST['amusement_ride_description'],
 ]);
 
 // 資料送出後會轉成JSON格式供檢查內容，若沒有成功執行(新增資料失敗)，

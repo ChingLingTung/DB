@@ -28,7 +28,7 @@ if ($totalRows > 0) {
     }
     
     $sql = sprintf(
-    "SELECT * FROM amusement_ride ORDER BY sid DESC LIMIT %s, %s",
+    "SELECT * FROM amusement_ride ORDER BY amusement_ride_id DESC LIMIT %s, %s",
     ($page - 1) * $perPage,
     $perPage
 
@@ -39,7 +39,7 @@ if ($totalRows > 0) {
 
 
 // sql語法
-$sql = "SELECT * FROM amusement_ride ORDER BY sid DESC LIMIT 0, 20";
+$sql = "SELECT * FROM amusement_ride ORDER BY amusement_ride_id DESC LIMIT 0, 20";
 // 用php物件變數
 $rows = $pdo->query($sql)->fetchAll();
 ?>
@@ -109,7 +109,7 @@ $rows = $pdo->query($sql)->fetchAll();
         <tr>
             <td>
                 <!-- 設定JS的假連結，將PHP變數嵌入方法中，使用者在點選此超連結時會執行deleteItem這個方法 -->
-                <a href="javascript: deleteItem(<?= $r['sid'] ?>)"><i class="fa-solid fa-trash-can"></i></a>
+                <a href="javascript: deleteItem(<?= $r['amusement_ride_id'] ?>)"><i class="fa-solid fa-trash-can"></i></a>
             </td>
             <td><?= $r['amusement_ride_id'] ?></td>
             <td><?= htmlentities($r['amusement_ride_name']) ?></td>
@@ -129,7 +129,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <!-- 直接去除所有HTML標籤只呈現沒有標籤的內容 -->
                 <!-- <?= strip_tags($r['address']) ?></td> -->
             <td>
-                <a href="edit.php?sid=<?= $r['sid'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="edit.php?amusement_ride_id=<?= $r['amusement_ride_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
         </tr>
         <?php endforeach ?>
@@ -143,9 +143,9 @@ $rows = $pdo->query($sql)->fetchAll();
 <?php include "./parts/scripts.php"?>
 <script>
     // 設定刪除資料前的提示小視窗，按確定後才會刪除資料
-function deleteItem(sid) {
-    if (confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)) {
-        location.href = 'delete.php?sid=' + sid;
+function deleteItem(amusement_ride_id) {
+    if (confirm(`確定要刪除編號為 ${amusement_ride_id} 的資料嗎?`)) {
+        location.href = 'delete.php?amusement_ride_id=' + amusement_ride_id;
     }
     }</script>
 <?php include "./parts/html_foot.php"?>
