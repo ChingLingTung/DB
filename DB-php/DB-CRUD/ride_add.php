@@ -2,6 +2,8 @@
 require './parts/connect_db.php';
 $pageName='add';
 $title='新增資料';
+$formName='ride';
+$formTitle='設施介紹';
 ?>
 
 <?php include "./parts/html_head.php"?>
@@ -10,7 +12,7 @@ $title='新增資料';
 
 <div class="container">
     <div class="border border-primary-subtle border-4 rounded p-3 mb-3 border-opacity-50 h-100">
-        <h5 class="mb-5">新增設施資料</h5>
+        <h5 class="mb-5">新增設施介紹資料</h5>
         <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
         為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
         <form name="form1" onsubmit="sendData(event)" >
@@ -45,18 +47,47 @@ $title='新增資料';
             <label for="amusement_ride_latitude" class="form-label">設施所在緯度</label>
             <input type="text" class="form-control" id="amusement_ride_latitude" name="amusement_ride_latitude">
             <div class="form-text"></div>
+            </div>
+            <div class="input-group mb-3">
+            <label for="ride_category_id" class="form-label" >設施所屬種類</label>
+            <select class="form-select ms-3" id="ride_category_id" >
+                <option selected>請選擇設施種類</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <div class="form-text"></div>
             </div> 
-            <label for="ride_category_id" class="form-label">設施所屬種類</label>
-            <input type="number" class="form-control" id="ride_category_id" name="ride_category_id">
+            <div class="input-group mb-3">
+            <label for="thriller_rating" class="form-label" >設施刺激程度</label>
+            <select class="form-select ms-3" id="thriller_rating">
+                <option selected>請選擇設施刺激程度</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
             <div class="form-text"></div>
-            <label for="thriller_rating" class="form-label">設施刺激程度</label>
-            <input type="number" class="form-control" id="thriller_rating" name="thriller_rating">
+            </div>
+            <div class="input-group mb-3">
+            <label for="theme_id" class="form-label" >設施所屬主題編號</label>
+            <select class="form-select ms-3" id="theme_id">
+                <option selected>請選擇設施所屬主題編號</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
             <div class="form-text"></div>
-            <label for="theme_id" class="form-label">設施所屬主題編號</label>
-            <input type="number" class="form-control" id="theme_id" name="theme_id">
+            </div>
+            <div class="input-group mb-3">
+            <label for="theme_name" class="form-label" >設施所屬主題名稱</label>
+            <select class="form-select ms-3" id="theme_name">
+                <option selected>請選擇設施所屬主題名稱</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
             <div class="form-text"></div>
-            <label for="theme_name" class="form-label">設施所屬主題名稱</label>
-            <input type="text" class="form-control" id="theme_name" name="theme_name">
+            </div>
             <div class="mb-3">
             <label for="amusement_ride_description" class="form-label">設施簡介</label>
             <textarea class="form-control" name="amusement_ride_description" id="amusement_ride_description" cols="30" rows="3"></textarea>
@@ -130,7 +161,7 @@ $title='新增資料';
         // 建立只有資料的表單
         const fd = new FormData(document.form1);
         // 設定ajax的送出方式fetch('資料運送的目的地', {送出方式}
-        fetch('add-api.php', {
+        fetch('ride_add-api.php', {
             method: 'POST',
             // 送出的格式會自動是 multipart/form-data
             body: fd, 
@@ -145,7 +176,7 @@ $title='新增資料';
             if (data.success) {
                 alert('資料新增成功');
                 // 提示後跳轉至表格清單頁面
-                location.href = "./list.php"
+                location.href = "./ride_list.php"
                 }else {
                 // 如果沒有新增成功要提示
                 for(let n in data.errors){

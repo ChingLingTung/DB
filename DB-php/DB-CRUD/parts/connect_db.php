@@ -2,11 +2,11 @@
 // 主機名稱
 $db_host = "localhost";
 // 資料庫名稱
-$db_name = "ride";
+$db_name = "rides";
 // 使用者名稱
 $db_user = "root";
 // 使用者密碼
-$db_pass = "123456";
+$db_pass = "";
 
 # data source name
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4";
