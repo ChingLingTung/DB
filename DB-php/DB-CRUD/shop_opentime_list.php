@@ -90,11 +90,11 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">
                 <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">shop_opentime_id</th>
-            <th scope="col">shop_id</th>
-            <th scope="col">open_week</th>
-            <th scope="col">open_time</th>
-            <th scope="col">close_time</th>
+            <th scope="col">商店營業時間id</th>
+            <th scope="col">商店id</th>
+            <th scope="col">營業星期</th>
+            <th scope="col">營業開始時間</th>
+            <th scope="col">營業結束時間</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
             </th>

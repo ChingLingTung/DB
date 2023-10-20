@@ -90,10 +90,10 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">
                 <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">ride_category_id</th>
-            <th scope="col">ride_category_name</th>
-            <th scope="col">ride_category_description</th>
-            <th scope="col">height_requirement</th>
+            <th scope="col">設施種類id</th>
+            <th scope="col">設施種類名稱</th>
+            <th scope="col">設施種類簡述</th>
+            <th scope="col">身高限制</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
             </th>

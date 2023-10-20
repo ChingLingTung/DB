@@ -167,7 +167,7 @@ CREATE TABLE `ride_category` (
 
 CREATE TABLE `ride_support` (
   `ride_support_id` int(11) NOT NULL AUTO_INCREMENT,
-  `support_category_name` varchar(100) NOT NULL,
+  `ride_support_name` varchar(100) NOT NULL,
   `ride_support_description` varchar(255) NOT NULL,
   PRIMARY KEY (`ride_support_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施特殊支援類型';
@@ -195,3 +195,11 @@ CREATE TABLE `shop_opentime` (
   `close_time` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`shop_opentime_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店營業時間';
+
+-- rides.theme definition 1021
+
+CREATE TABLE `theme` (
+  `theme_id` int NOT NULL AUTO_INCREMENT,
+  `theme_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`theme_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='設施主題';

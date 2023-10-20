@@ -90,14 +90,14 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">
                 <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">restaurant_reservation_id</th>
-            <th scope="col">user_id</th>
-            <th scope="col">shop_id</th>
-            <th scope="col">shop_name</th>
-            <th scope="col">adult</th>
-            <th scope="col">child</th>
-            <th scope="col">date</th>
-            <th scope="col">starting_time</th>
+            <th scope="col">商店預約id</th>
+            <th scope="col">預約會員id</th>
+            <th scope="col">商店id</th>
+            <th scope="col">商店名稱</th>
+            <th scope="col">成人人數</th>
+            <th scope="col">孩童人數</th>
+            <th scope="col">預定日期</th>
+            <th scope="col">預定時間</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
             </th>

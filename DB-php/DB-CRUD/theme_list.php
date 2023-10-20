@@ -2,8 +2,8 @@
 require './parts/connect_db.php';
 $pageName='list';
 $title='資料清單';
-$formName='maintenance';
-$formTitle='設施維護詳情';
+$formName='theme';
+$formTitle='設施主題';
 // 若page值已被設定，轉成整數，若沒設定，則將其設為1
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 // 避免因為get方法致使get的值被從網址修改，設定若get到的值小於一直接轉回第一頁的頁面
@@ -13,7 +13,7 @@ if ($page < 1) {
 }
 // 設定一頁最多幾筆資料
 $perPage = 25;
-$t_sql = "SELECT COUNT(1) FROM maintenance";
+$t_sql = "SELECT COUNT(1) FROM theme";
 // 資料總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 # 設定變數預設值
@@ -30,7 +30,7 @@ if ($totalRows > 0) {
     }
     
     $sql = sprintf(
-    "SELECT * FROM maintenance ORDER BY maintenance_id DESC LIMIT %s, %s",
+    "SELECT * FROM theme ORDER BY theme_id DESC LIMIT %s, %s",
     ($page - 1) * $perPage,
     $perPage
 
@@ -41,7 +41,7 @@ if ($totalRows > 0) {
 
 
 // sql語法
-$sql = "SELECT * FROM maintenance ORDER BY maintenance_id DESC LIMIT 0, 20";
+$sql = "SELECT * FROM theme ORDER BY theme_id DESC LIMIT 0, 20";
 // 用php物件變數
 $rows = $pdo->query($sql)->fetchAll();
 ?>
@@ -90,16 +90,8 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">
                 <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">維護資料id</th>
-            <th scope="col">設施id</th>
-            <th scope="col">設施名稱</th>
-            <th scope="col">維護種類id</th>
-            <th scope="col">維護種類名稱</th>
-            <th scope="col">維護開始時間</th>
-            <th scope="col">維護結束時間</th>
-            <th scope="col">維護名稱</th>
-            <th scope="col">維護結果</th>
-            <th scope="col">更新時間</th>
+            <th scope="col">設施主題id</th>
+            <th scope="col">設施主題名稱</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
             </th>
@@ -110,18 +102,18 @@ $rows = $pdo->query($sql)->fetchAll();
         <tr>
             <td>
                 <!-- 設定JS的假連結，將PHP變數嵌入方法中，使用者在點選此超連結時會執行deleteItem這個方法 -->
-                <a href="javascript: deleteItem(<?= $r['maintenance_id'] ?>)"><i class="fa-solid fa-trash-can"></i></a>
+                <a href="javascript: deleteItem(<?= $r['theme_id'] ?>)"><i class="fa-solid fa-trash-can"></i></a>
             </td>
-            <td><?= $r['maintenance_id'] ?></td>
-            <td><?= htmlentities($r['maintenance_name']) ?></td>
-            <td><?= htmlentities($r['maintenance_description']) ?></td>
+            <td><?= $r['theme_id'] ?></td>
+            <td><?= htmlentities($r['theme_name']) ?></td>
+
 
             <!-- 避免XSS攻擊被惡意植入JS程式導致輸入的資料外洩，將輸入的文字"直接"呈現不做HTML的文字跳脫導致出現HTML標籤執行程式 -->
             <!-- <td><?= htmlentities($r['address']) ?> -->
             <!-- 直接去除所有HTML標籤只呈現沒有標籤的內容 -->
                 <!-- <?= strip_tags($r['address']) ?></td> -->
             <td>
-                <a href="edit.php?maintenance_id=<?= $r['maintenance_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="edit.php?theme_id=<?= $r['theme_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
         </tr>
         <?php endforeach ?>
@@ -135,9 +127,9 @@ $rows = $pdo->query($sql)->fetchAll();
 <?php include "./parts/scripts.php"?>
 <script>
     // 設定刪除資料前的提示小視窗，按確定後才會刪除資料
-function deleteItem(maintenance_id) {
-    if (confirm(`確定要刪除編號為 ${maintenance_id} 的資料嗎?`)) {
-        location.href = 'delete.php?maintenance_id=' + maintenance_id;
+function deleteItem(theme_id) {
+    if (confirm(`確定要刪除編號為 ${theme_id} 的資料嗎?`)) {
+        location.href = 'delete.php?theme_id=' + theme_id;
     }
     }</script>
 <?php include "./parts/html_foot.php"?>

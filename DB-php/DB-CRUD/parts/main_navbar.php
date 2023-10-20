@@ -14,7 +14,7 @@ $formName='';
 <div class="container">
     <nav class="navbar navbar-expand-lg text-bg-info p-3">
       <div class="container-fluid">
-        <a class="navbar-brand fs-2" href="#"><?= $formTitle?></a>
+        <a class="navbar-brand fs-3" href="#"><?= $formTitle?></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,6 +22,9 @@ $formName='';
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link fs-5 ms-3 <?= $formName=='ride'? 'badge text-bg-primary mt-1':'' ?>" href="./ride_list.php">設施介紹</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fs-5 ms-3 <?= $formName=='theme'? 'badge text-bg-primary mt-1':'' ?>" href="./theme_list.php">設施主題</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fs-5 ms-3 <?= $formName=='ride_category'? 'badge text-bg-primary mt-1':'' ?>" href="./ride_category_list.php">設施種類</a>

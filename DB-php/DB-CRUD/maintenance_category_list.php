@@ -90,9 +90,9 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">
                 <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">maintenance_category_id</th>
-            <th scope="col">maintenance_category_name</th>
-            <th scope="col">maintenance_category_description</th>
+            <th scope="col">維護種類id</th>
+            <th scope="col">維護種類名稱</th>
+            <th scope="col">維護種類簡述</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
             </th>

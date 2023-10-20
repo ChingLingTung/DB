@@ -90,15 +90,15 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">
                 <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">shop_id</th>
-            <th scope="col">shop_name</th>
-            <th scope="col">shop_img</th>
-            <th scope="col">shop_longitude</th>
-            <th scope="col">shop_latitude</th>
-            <th scope="col">shop_type_id</th>
-            <th scope="col">shop_type_name</th>
-            <th scope="col">seat</th>
-            <th scope="col">eating_time</th>
+            <th scope="col">商店id</th>
+            <th scope="col">商店名稱</th>
+            <th scope="col">商店圖片</th>
+            <th scope="col">商店經度</th>
+            <th scope="col">商店緯度</th>
+            <th scope="col">商店類型id</th>
+            <th scope="col">商店類型名稱</th>
+            <th scope="col">用餐人數</th>
+            <th scope="col">用餐時間</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
             </th>
