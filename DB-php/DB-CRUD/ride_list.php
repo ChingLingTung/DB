@@ -4,6 +4,9 @@ $pageName='list';
 $title='資料清單';
 $formName='ride';
 $formTitle='設施介紹';
+
+// 設定一頁最多幾筆資料
+$perPage = 25;
 // 若page值已被設定，轉成整數，若沒設定，則將其設為1
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 // 避免因為get方法致使get的值被從網址修改，設定若get到的值小於一直接轉回第一頁的頁面
@@ -11,8 +14,6 @@ if ($page < 1) {
     header('Location: ?page=1'); # 頁面轉向
     exit; # 直接結束這支 php
 }
-// 設定一頁最多幾筆資料
-$perPage = 25;
 $t_sql = "SELECT COUNT(1) FROM amusement_ride";
 // 資料總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -41,7 +42,7 @@ if ($totalRows > 0) {
 
 
 // sql語法
-$sql = "SELECT * FROM amusement_ride ORDER BY amusement_ride_id DESC LIMIT 0, 20";
+// $sql = "SELECT * FROM amusement_ride ORDER BY amusement_ride_id DESC LIMIT 0, 20";
 // 用php物件變數
 $rows = $pdo->query($sql)->fetchAll();
 ?>

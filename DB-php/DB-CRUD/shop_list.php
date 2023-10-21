@@ -41,7 +41,7 @@ if ($totalRows > 0) {
 
 
 // sql語法
-$sql = "SELECT * FROM shop ORDER BY shop_id DESC LIMIT 0, 20";
+// $sql = "SELECT * FROM shop ORDER BY shop_id DESC LIMIT 0, 20";
 // 用php物件變數
 $rows = $pdo->query($sql)->fetchAll();
 ?>
