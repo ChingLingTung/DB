@@ -66,11 +66,6 @@ $isPass = true;
       $isPass = false;
       $output['errors']['support_id'] = '請選擇設施支援類型';
     }
-  if(empty($_POST['theme_name']))
-    {
-      $isPass = false;
-      $output['errors']['theme_name'] = '請選擇設施主題名稱';
-    }
   if(empty($_POST['amusement_ride_description']))
     {
       $isPass = false;
@@ -91,9 +86,9 @@ if(! $isPass){
 }
 // sql語法設定，一個欄位對應一個問號，NOW()是sql本身可以取得當下時間的方法，取得時間直接帶入欄位內容
 $sql = "INSERT INTO `amusement_ride`(
-   `amusement_ride_name`, `amusement_ride_img`, `amusement_ride_longitude`, `amusement_ride_latitude`, `ride_category_id`,`thriller_rating`,`support_id`,`created_at`,`theme_id`,`theme_name`,`amusement_ride_description`
+  `amusement_ride_name`, `amusement_ride_img`, `amusement_ride_longitude`, `amusement_ride_latitude`, `ride_category_id`,`thriller_rating`,`support_id`,`created_at`,`theme_id`,`amusement_ride_description`
   ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?
+    ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?
   )";
 // 因上述的sql內容不完整(有問號)，因此這邊不能使用query，要改用prepare讓資料"準備"，資料會檢查
 $stmt = $pdo->prepare($sql);
@@ -108,7 +103,6 @@ $stmt->execute([
   $_POST['thriller_rating'],
   $_POST['support_id'],
   $_POST['theme_id'],
-  $_POST['theme_name'],
   $_POST['amusement_ride_description'],
 ]);
 

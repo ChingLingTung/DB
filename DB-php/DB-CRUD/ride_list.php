@@ -101,7 +101,6 @@ $rows = $pdo->query($sql)->fetchAll();
             <th scope="col">創建時間</th>
             <th scope="col">支援id</th>
             <th scope="col">主題id</th>
-            <th scope="col">主題名稱</th>
             <th scope="col">設施簡述</th>
             <th scope="col">
                 <i class="fa-solid fa-pen-to-square"></i>
@@ -125,7 +124,6 @@ $rows = $pdo->query($sql)->fetchAll();
             <td><?= $r['created_at'] ?></td>
             <td><?= $r['support_id'] ?></td>
             <td><?= $r['theme_id'] ?></td>
-            <td><?= htmlentities($r['theme_name']) ?></td>
             <td><?= htmlentities($r['amusement_ride_description']) ?></td>
 
             <!-- 避免XSS攻擊被惡意植入JS程式導致輸入的資料外洩，將輸入的文字"直接"呈現不做HTML的文字跳脫導致出現HTML標籤執行程式 -->
@@ -133,7 +131,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <!-- 直接去除所有HTML標籤只呈現沒有標籤的內容 -->
                 <!-- <?= strip_tags($r['address']) ?></td> -->
             <td>
-                <a href="edit.php?amusement_ride_id=<?= $r['amusement_ride_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="ride_edit.php?amusement_ride_id=<?= $r['amusement_ride_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
         </tr>
         <?php endforeach ?>
@@ -149,7 +147,7 @@ $rows = $pdo->query($sql)->fetchAll();
     // 設定刪除資料前的提示小視窗，按確定後才會刪除資料
 function deleteItem(amusement_ride_id) {
     if (confirm(`確定要刪除編號為 ${amusement_ride_id} 的資料嗎?`)) {
-        location.href = 'delete.php?amusement_ride_id=' + amusement_ride_id;
+        location.href = 'ride_delete.php?amusement_ride_id=' + amusement_ride_id ;
     }
     }</script>
 <?php include "./parts/html_foot.php"?>

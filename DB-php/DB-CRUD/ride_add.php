@@ -4,6 +4,14 @@ $pageName='add';
 $title='新增資料';
 $formName='ride';
 $formTitle='設施介紹';
+
+$sql1 = "SELECT ride_category_id,ride_category_name FROM ride_category";
+$sql2 = "SELECT ride_support_id,ride_support_name FROM ride_support";
+$sql3 = "SELECT theme_id,theme_name FROM theme";
+
+$rows = $pdo->query($sql1)->fetchAll();
+$rows2 = $pdo->query($sql2)->fetchAll();
+$rows3 = $pdo->query($sql3)->fetchAll();
 ?>
 
 <?php include "./parts/html_head.php"?>
@@ -14,8 +22,8 @@ $formTitle='設施介紹';
     <div class="border border-primary-subtle border-4 rounded p-3 mb-3 border-opacity-50 h-100">
         <h5 class="mb-5">新增設施介紹資料</h5>
         <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
-        為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
-        <form id="ride_form" name="ride_form" data-toggle="validator" >
+        為了要設定目標表單，要給表單加一個名字name="ride_form"，設定送出時要執行sendData()的方法 -->
+        <form class="needs-validation" id="ride_form" name="ride_form" data-toggle="validator" novalidate onsubmit="sendData(event)">
             <!-- form標籤裡要加上enctype="multipart/form-data"的設定資料才能傳送出去，這邊透過下方script內設定 -->
             
             <div class="mb-3 form-group">
@@ -33,10 +41,11 @@ $formTitle='設施介紹';
             </div>
             <!--要加hidden表單才會隱藏-->
             <!-- <form name="imgform" style="display:none"> -->
-                <input type="file" id="amusement_ride_img" name="amusement_ride_img" required="required" onchange="uploadFile()"data-error="請選擇圖片" />
+                <input type="file" id="amusement_ride_img" required="required" data-error="請選擇圖片" />
+                <input type="text" name="amusement_ride_img" id="amusement_ride_img_text" hidden>
             <!-- </form>  -->
             <!-- 如果想改樣式，可以將原始的表單隱藏，另外用div設置按鈕(可以是文字也可以是圖片)  -->
-            <div class="mt-2" style="cursor: pointer;" onclick="document.form1.amusement_ride_img.click()"><i class="fa-solid fa-arrow-up-from-bracket"></i>上傳檔案</div>
+            <div class="mt-2" style="cursor: pointer;" onclick="uploadFile()"><i class="fa-solid fa-arrow-up-from-bracket"></i>上傳檔案</div>
             <div class="help-block with-errors text-danger"></div>
             </div>            
             <div class="mb-3 form-group">
@@ -51,48 +60,51 @@ $formTitle='設施介紹';
             <div class="help-block with-errors text-danger"></div>
 
             </div>
-            <div class="input-group mb-3">
-            <label for="ride_category_id" class="form-label" >設施所屬種類</label>
-            <select class="form-select ms-3" id="ride_category_id" required="required" data-error="請選擇設施所屬種類">
-                <option selected>請選擇設施種類</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <div class="help-block with-errors text-danger"></div>
+            <div class="input-group form-group mb-3">
+                <label for="ride_category_id" class="form-label" >設施所屬種類</label>
+                <select class="form-select ms-3" id="ride_category_id" name="ride_category_id" required="required" data-error="請選擇設施種類" >
+                    <option selected disabled value="">請選擇設施種類</option>
+                    <?php foreach ($rows as $r) :?>
+                    <option value="<?= $r['ride_category_id'] ?>"><?= $r['ride_category_name'] ?></option>
+                    <?php
+                endforeach ?>
+                </select>
+                <div class="help-block with-errors text-danger w-100"></div>
 
             </div> 
-            <div class="input-group mb-3">
+            <div class="input-group form-group mb-3">
             <label for="thriller_rating" class="form-label" >設施刺激程度</label>
-            <select class="form-select ms-3" id="thriller_rating">
-                <option selected>請選擇設施刺激程度</option>
+            <select class="form-select ms-3" id="thriller_rating" name="thriller_rating" required="required" data-error="請選擇設施刺激程度">
+                <option selected disabled value="">請選擇設施刺激程度</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="3">4</option>
                 <option value="3">5</option>
             </select>
-            <div class="form-text"></div>
+            <div class="help-block with-errors text-danger w-100"></div>
             </div>
-            <div class="input-group mb-3">
-            <label for="theme_id" class="form-label" >設施所屬主題編號</label>
-            <select class="form-select ms-3" id="theme_id">
-                <option selected>請選擇設施所屬主題編號</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+            <div class="input-group form-group mb-3">
+            <label for="support_id" class="form-label" >支援種類</label>
+            <select class="form-select ms-3" id="support_id" name="support_id" required="required" data-error="請選擇設施所屬支援種類" >
+                <option selected disabled value="">請選擇支援種類</option>
+                <?php foreach ($rows2 as $r) : ?>
+                  <option value="<?= $r['ride_support_id'] ?>"><?= $r['ride_support_name'] ?></option>
+                <?php
+                endforeach ?>
             </select>
-            <div class="form-text"></div>
+            <div class="help-block with-errors text-danger w-100"></div>
             </div>
-            <div class="input-group mb-3">
-            <label for="theme_name" class="form-label" >設施所屬主題名稱</label>
-            <select class="form-select ms-3" id="theme_name">
-                <option selected>請選擇設施所屬主題名稱</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+            <div class="input-group form-group mb-3">
+            <label for="theme_id" class="form-label" >設施所屬主題名稱</label>
+            <select class="form-select ms-3" id="theme_id" name="theme_id" required="required" data-error="請選擇設施所屬主題名稱" >
+                <option selected disabled value="">請選擇設施所屬主題名稱</option>
+                <?php foreach ($rows3 as $r) : ?>
+                  <option value="<?= $r['theme_id'] ?>"><?= $r['theme_name'] ?></option>
+                <?php
+                endforeach ?>
             </select>
-            <div class="form-text"></div>
+            <div class="help-block with-errors text-danger w-100"></div>
             </div>
             <div class="mb-3 form-group">
             <label for="amusement_ride_description" class="form-label">設施簡介</label>
@@ -109,109 +121,53 @@ $formTitle='設施介紹';
 
 <?php include "./parts/scripts.php"?>
 <script>
+    $(document).ready(function () {
+        $('#ride_form').validator({
+            custom:{
+                ride_category_id:function($el){
+                    console.log($el.val());
+                }
+            }
+            // fields: {
+                // dropdown: {
+                //     validators: {
+                //         notEmpty: {
+                //             message: '請選擇一個選項'
+                //         }
+                //     }
+                // },
+                // 其他表單字串的驗證規則
+            // }
+        });
+    });
     $('#ride_form').validator().on('submit', function(e) {
         if (e.isDefaultPrevented()) { // 未驗證通過 則不處理
         return;
         } else { // 通過後送出表單
-            alert("資料新增成功");
-        }
-            e.preventDefault(); // 防止原始 form 提交表單
-        });
-    // 設定各欄位表格內容(input)的參照
-    const amusement_ride_name_in = document.form1.amusement_ride_name;
-    const amusement_ride_img_in = document.form1.amusement_ride_img;
-    const amusement_ride_longitude_in = document.form1.amusement_ride_longitude;
-    // 用陣列方式方便處理多個欄位
-    const fields = [amusement_ride_name_in, amusement_ride_img_in, amusement_ride_longitude_in];
-    // 設定amusement_ride_img的圖片檢查通過格式並回傳布林值
-    function validate(amusement_ride_img) {
-        // const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        // return re.test(amusement_ride_img);
-    }
-    // 設定經度的檢查通過格式並回傳布林值
-    function validate(amusement_ride_longitude) {
-        // const re = /^09\d{2}-?\d{3}-?\d{3}$/;
-        // return re.test(amusement_ride_longitude);
-    }
-
-    // 定義方法sendData()，e等於上方的event
-    function sendData(e) {
-    //     // 取消表單預設的傳統的送出方式，相當於在form標籤內設定onsubmit="return false" 
-    //     e.preventDefault();
-    //     // amusement_ride_name_in.style.border = '1px solid #CCCCCC';
-    //     // amusement_ride_name_in.nextElementSibling.innerHTML = ''; 
-    //     // 用迴圈重置表格的外觀
-    //     fields.forEach(field => {
-    //         field.style.border = '1px solid #CCCCCC';
-    //         field.nextElementSibling.innerHTML = '';
-    //     })
-
-    //     // TODO: 資料在送出之前, 要檢查格式
-    //     // 預設檢查通過(任一不通過即為false)
-    //     let isPass = true; 
-    //     // 設定若姓名欄位內容長度小於二不通過檢查
-    //     if (amusement_ride_name_in.value.length < 2) {
-    //         isPass = false;
-    //         // 將名稱欄位輸入框標示為紅色
-    //         amusement_ride_name_in.style.border = '2px solid red';
-    //         // 設定名稱欄位框下方提示文字
-    //         amusement_ride_name_in.nextElementSibling.innerHTML = '請填寫設施名稱';
-    //     }
-    //     // 如果輸入圖檔不符合格式，標示紅框及提示文字
-    //     if (!validateamusement_ride_img(amusement_ride_img_in.value)) {
-    //         isPass = false;
-    //         amusement_ride_img_in.style.border = '2px solid red';
-    //         amusement_ride_img_in.nextElementSibling.innerHTML = '請上傳正確的圖檔格式';
-    //     }
-    //     // 如果手機內容有輸入但內容不符合格式，標示紅框及提示文字，若未填則不判斷
-    //     if (amusement_ride_longitude_in.value && !validateamusement_ride_longitude(amusement_ride_longitude_in.value)) {
-    //         isPass = false;
-    //         amusement_ride_longitude_in.style.border = '2px solid red';
-    //         amusement_ride_longitude_in.nextElementSibling.innerHTML = '請填寫正確的手機號碼';
-    //     }
-    //     // 如果以上任一檢查不通過則不發送資料
-    //     if (!isPass) {
-    //         return;
-    //     }
-        // 建立只有資料的表單
-        const fd = new FormData(document.ride_form);
-        // 設定ajax的送出方式fetch('資料運送的目的地', {送出方式}
-        fetch('ride_add-api.php', {
-            method: 'POST',
-            // 送出的格式會自動是 multipart/form-data
-            body: fd, 
-            // 因在add-api.php的檔案中設定資料檔案形式是JSON因此要求response傳回的JSON檔轉回原始的data資料
-        }).then(r => r.json())
-        // 取得轉譯後的原始data資料
-        .then(data => {
-            console.log({
-            data
-            });
-            // 如果資料新增成功給予提示
-            if (data.success) {
+            const fd = new FormData(document.ride_form);
+            // 設定ajax的送出方式fetch('資料運送的目的地', {送出方式}
+            fetch('ride_add-api.php', {
+                method: 'POST',
+                // 送出的格式會自動是 multipart/form-data
+                body: fd, 
+                // 因在add-api.php的檔案中設定資料檔案形式是JSON因此要求response傳回的JSON檔轉回原始的data資料
+            }).then(r => r.json())
+            // 取得轉譯後的原始data資料
+            .then(data => {
+                console.log({
+                data
+                });
+                // 如果資料新增成功給予提示
+                if (data.success) {
+                e.preventDefault(); // 防止原始 form 提交表單
                 alert('資料新增成功');
                 // 提示後跳轉至表格清單頁面
                 location.href = "./ride_list.php"
-                }else {
-                // 如果沒有新增成功要提示
-                for(let n in data.errors){
-                    // 設定n是沒有通過檢查的input欄位名稱
-                    console.log(`n: ${n}`);
-                    // 取得form1裡的欄位名稱n以物件表示(因欄位不只一個)
-                    if(document.ride_form[n]){
-                        const input = document.ride_form[n];
-                        // 設定n(該欄位)的css樣式
-                        input.style.border = '2px solid red';
-                        // 設定欄位下方的提示文字為errors的錯誤提示內容(以物件表示)
-                        input.nextElementSibling.innerHTML = data.errors[n];
-                    }
                 }
-                }
-        })
-        // 設定若有錯誤會透過log記錄
-        .catch(ex => console.log(ex))
-    }
-    // 定義uploadFile()
+            });
+        }
+    })
+    
     function uploadFile() {
         // 將圖片的值設定給FormData沒有外觀的表單
         // const img = new uploadFile(document.amusement_ride_img);
@@ -231,8 +187,51 @@ $formTitle='設施介紹';
             if (data.success) {
               // 將這張圖片ride_img的src設定為路徑(/php/uploads/)+完整檔名(data.file)
                 ride_img.src = data.file;
+                // $($('#amusement_ride_img_text')[0]).val(data.file);
+                document.getElementById('amusement_ride_img_text').value = data.file;
             }
             });
         }
+
+        function sendData(e) {
+    e.preventDefault(); // 不要讓表單以傳統的方式送出
+    
+    // TODO: 資料在送出之前, 要檢查格式
+    let isPass = true; // 有沒有通過檢查
+
+    if (!isPass) {
+      return; // 沒有通過就不要發送資料
+    }
+
+    // 建立只有資料的表單
+    const fd = new FormData(document.ride_form);
+
+    fetch('ride_add-api.php', {
+        method: 'POST',
+        body: fd, // 送出的格式會自動是 multipart/form-data
+      }).then(r => r.json())
+      .then(data => {
+        console.log({
+          data
+        });
+        if (data.success) {
+          alert('資料新增成功');
+          location.href = "./ride_list.php"
+        } else {
+          alert('資料新增失敗');
+        //   for (let n in data.errors) {
+        //     console.log(`n: ${n}`);
+        //     if (document.ride_form[n]) {
+        //       const input = document.ride_form[n];
+        //       input.style.border = '2px solid red';
+        //       input.nextElementSibling.innerHTML = data.errors[n];
+        //     }
+        //   }
+        }
+      })
+    //   .catch(ex => console.log(ex))
+  }
+
+
 </script>
 <?php include "./parts/html_foot.php"?>
