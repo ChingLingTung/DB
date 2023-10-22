@@ -43,7 +43,7 @@ if ($totalRows > 0) {
 // sql語法
 // $sql = "SELECT * FROM restaurant_reservation ORDER BY restaurant_reservation_id DESC LIMIT 0, 20";
 // 用php物件變數
-$rows = $pdo->query($sql)->fetchAll();
+// $rows = $pdo->query($sql)->fetchAll();
 ?>
 
 <?php include "./parts/html_head.php"?>
