@@ -127,7 +127,7 @@ $rows = $pdo->query($sql)->fetchAll();
     // 設定刪除資料前的提示小視窗，按確定後才會刪除資料
 function deleteItem(ride_category_id) {
     if (confirm(`確定要刪除編號為 ${ride_category_id} 的資料嗎?`)) {
-        location.href = 'delete.php?ride_category_id=' + ride_category_id;
+        location.href = 'ride_category_delete.php?ride_category_id=' + ride_category_id;
     }
     }</script>
 <?php include "./parts/html_foot.php"?>
