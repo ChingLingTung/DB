@@ -15,7 +15,7 @@ $formTitle='設施種類';
         <h5 class="mb-5">新增設施種類資料</h5>
         <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
         為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
-        <form name="form1" id="form1" class="needs-validation" data-toggle="validator"  onsubmit="sendData(event)" >
+        <form name="form1" id="form1" class="needs-validation" data-toggle="validator"  >
             <!-- form標籤裡要加上enctype="multipart/form-data"的設定資料才能傳送出去，這邊透過下方script內設定 -->
 
             <div class="mb-3 form-group">
