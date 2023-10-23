@@ -38,8 +38,10 @@ if (empty($ride_support_id)) {
 
 // 如果沒有填則設定是空字串
 $ride_support_name = $_POST['ride_support_name']?? '';
-$ride_support_description = $_POST['`ride_support_description`=?,
-']?? '';
+$ride_support_description = $_POST['ride_support_description']?? '';
+
+// $output['getData']['ride_support_name'] = $ride_support_name;
+// $output['getData']['ride_support_description'] = $ride_support_description;
 // TODO: 資料在寫入之前, 要檢查格式
 // 可以用的方法
 // trim(): 去除內容頭尾的空白
