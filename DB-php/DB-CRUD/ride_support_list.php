@@ -109,12 +109,9 @@ $rows = $pdo->query($sql)->fetchAll();
             <td><?= htmlentities($r['ride_support_name']) ?></td>
             <td><?= htmlentities($r['ride_support_description']) ?></td>
 
-            <!-- 避免XSS攻擊被惡意植入JS程式導致輸入的資料外洩，將輸入的文字"直接"呈現不做HTML的文字跳脫導致出現HTML標籤執行程式 -->
-            <!-- <td><?= htmlentities($r['address']) ?> -->
-            <!-- 直接去除所有HTML標籤只呈現沒有標籤的內容 -->
-                <!-- <?= strip_tags($r['address']) ?></td> -->
+
             <td>
-                <a href="edit.php?ride_support_id=<?= $r['ride_support_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="ride_support_edit.php?ride_support_id=<?= $r['ride_support_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
         </tr>
         <?php endforeach ?>
@@ -130,7 +127,7 @@ $rows = $pdo->query($sql)->fetchAll();
     // 設定刪除資料前的提示小視窗，按確定後才會刪除資料
 function deleteItem(ride_support_id) {
     if (confirm(`確定要刪除編號為 ${ride_support_id} 的資料嗎?`)) {
-        location.href = 'delete.php?ride_support_id=' + ride_support_id;
+        location.href = 'ride_support_delete.php?ride_support_id=' + ride_support_id;
     }
     }</script>
 <?php include "./parts/html_foot.php"?>
