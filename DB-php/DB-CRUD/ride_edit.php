@@ -32,6 +32,14 @@ if (empty($amusement_ride_id)) {
     $rows = $pdo->query($sql1)->fetchAll();
     $rows2 = $pdo->query($sql2)->fetchAll();
     $rows3 = $pdo->query($sql3)->fetchAll();
+
+    enum ThrillerRating:string{
+        case 一星 = "1";
+        case 二星 = "2";
+        case 三星 = "3";
+        case 四星 = "4";
+        case 五星 = "5";
+    }
 ?>
 
 <?php include "./parts/html_head.php"?>
@@ -58,12 +66,12 @@ if (empty($amusement_ride_id)) {
             <br>            
             <!-- 設定顯示圖片的長寬 -->
             <div style="width: 300px">
-                <img src="" alt="" id="ride_img" width="100%" />
+                <img src="<?= htmlentities($row['amusement_ride_img']) ?>" alt="" id="ride_img" width="100%" />
             </div>
             <!--要加hidden表單才會隱藏-->
             <!-- <form name="imgform" style="display:none"> -->
-                <input type="file" id="amusement_ride_img" required="required" data-error="請選擇圖片" />
-                <input type="text" name="amusement_ride_img" id="amusement_ride_img_text" value="" hidden>
+                <input type="file" id="amusement_ride_img"   />
+                <input type="text" name="amusement_ride_img" id="amusement_ride_img_text" required="required" data-error="請選擇圖片" value="<?= htmlentities($row['amusement_ride_img']) ?>" hidden>
             <!-- </form>  -->
             <!-- 如果想改樣式，可以將原始的表單隱藏，另外用div設置按鈕(可以是文字也可以是圖片)  -->
             <div class="mt-2" style="cursor: pointer;" onclick="uploadFile()"><i class="fa-solid fa-arrow-up-from-bracket"></i>上傳檔案</div>
@@ -94,12 +102,12 @@ if (empty($amusement_ride_id)) {
             </div> 
             <div class="input-group form-group mb-3">
             <label for="thriller_rating" class="form-label" >設施刺激程度</label>
-            <select class="form-select ms-3" id="thriller_rating" name="thriller_rating" value="<?= htmlentities($row['thriller_rating']) ?>" required="required" data-error="請選擇設施刺激程度">
-                <option value="1" >1</option>
-                <option value="2" >2</option>
-                <option value="3" >3</option>
-                <option value="4" >4</option>
-                <option value="5" >5</option>
+            <select class="form-select ms-3" id="thriller_rating" name="thriller_rating" value="<?= htmlentities($row['thriller_rating']) ?>" required="required" data-error="請選擇設施刺激程度">                
+            <?php foreach (ThrillerRating::cases() as $thrillerRating) :?>
+                <option value="<?= $thrillerRating->value ?>" <?= $row['thriller_rating'] == $thrillerRating->value ? 'selected' : "" ?>><?= $thrillerRating->name ?></option>
+            <?php endforeach ?>
+            
+                
             </select>
             <div class="help-block with-errors text-danger w-100"></div>
             </div>
@@ -138,7 +146,30 @@ if (empty($amusement_ride_id)) {
 
 <?php include "./parts/scripts.php"?>
 <script>
-
+    function uploadFile() {
+        // 將圖片的值設定給FormData沒有外觀的表單
+        // const img = new uploadFile(document.amusement_ride_img);
+        // const fd = new FormData(document.imgform);
+        let fd = new FormData();
+        fd.append('amusement_ride_img', document.getElementById('amusement_ride_img').files[0]);
+        // 用post的方法把表單內容傳給upload-img-api-1.php這支php檔
+        fetch("upload-img-api-1.php", {
+            method: "POST",
+          // 等同於enctype="multipart/form-data"的效果
+            body: fd, 
+        })
+        // 因為這邊是JSON格式因此.json()取得data
+            .then((r) => r.json())
+            .then((data) => {
+            // 如果data取得success值
+            if (data.success) {
+              // 將這張圖片ride_img的src設定為路徑(/php/uploads/)+完整檔名(data.file)
+                ride_img.src = data.file;
+                // $($('#amusement_ride_img_text')[0]).val(data.file);
+                document.getElementById('amusement_ride_img_text').value = data.file;
+            }
+            });
+        }
     // 定義方法sendData()，e等於上方的event
     function sendData(e) {
         // 取消表單預設的傳統的送出方式，相當於在form標籤內設定onsubmit="return false" 
@@ -179,27 +210,27 @@ if (empty($amusement_ride_id)) {
             return;
         }
         // 建立只有資料的表單
-        // const fd = new FormData(document.form1);
+        const fd = new FormData(document.form1);
         // 設定ajax的送出方式fetch('資料運送的目的地', {送出方式}
-    //     fetch('edit-api.php', {
-    //         method: 'POST',
-    //         // 送出的格式會自動是 multipart/form-data
-    //         body: fd, 
-    //         // 因在add-api.php的檔案中設定資料檔案形式是JSON因此要求response傳回的JSON檔轉回原始的data資料
-    //     }).then(r => r.json())
-    //     // 取得轉譯後的原始data資料
-    //     .then(data => {
-    //         console.log({
-    //         data
-    //         });
-    //         // 如果資料新增成功給予提示
-    //         if (data.success) {
-    //             alert('資料編輯成功');
-    //             // 後端的php程式不做跳轉
-    //             // location.href = "./list.php"
-    //             }else {
-    //               // 若資料和原本的一樣沒有更動
-    //               alert('資料沒有修改');
+        fetch('ride_edit-api.php', {
+            method: 'POST',
+            // 送出的格式會自動是 multipart/form-data
+            body: fd, 
+            // 因在add-api.php的檔案中設定資料檔案形式是JSON因此要求response傳回的JSON檔轉回原始的data資料
+        }).then(r => r.json())
+        // 取得轉譯後的原始data資料
+        .then(data => {
+            console.log({
+            data
+            });
+            // 如果資料新增成功給予提示
+            if (data.success) {
+                alert('資料編輯成功');
+                // 後端的php程式不做跳轉
+                // location.href = "./list.php"
+                }else {
+                  // 若資料和原本的一樣沒有更動
+                  alert('資料沒有修改');
     //               for(let n in data.errors){
     //                 console.log(`n: ${n}`);
     //                 // 設定css樣式提示是哪個欄位
@@ -209,9 +240,9 @@ if (empty($amusement_ride_id)) {
     //                   // 欄位下方文字提示
     //                   input.nextElementSibling.innerHTML = data.errors[n];
     //                 }
-    //               }
+                  }
     //             }
-    //       })
+          })
     //     // 設定若有錯誤會透過log記錄
     //     .catch(ex => console.log(ex))
     }

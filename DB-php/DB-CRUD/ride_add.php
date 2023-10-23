@@ -12,7 +12,16 @@ $sql3 = "SELECT theme_id,theme_name FROM theme";
 $rows = $pdo->query($sql1)->fetchAll();
 $rows2 = $pdo->query($sql2)->fetchAll();
 $rows3 = $pdo->query($sql3)->fetchAll();
+
+enum ThrillerRating:string{
+    case 一星 = "1";
+    case 二星 = "2";
+    case 三星 = "3";
+    case 四星 = "4";
+    case 五星 = "5";
+}
 ?>
+
 
 <?php include "./parts/html_head.php"?>
 <?php include "./parts/main_navbar.php"?>
@@ -74,13 +83,12 @@ $rows3 = $pdo->query($sql3)->fetchAll();
             </div> 
             <div class="input-group form-group mb-3">
             <label for="thriller_rating" class="form-label" >設施刺激程度</label>
-            <select class="form-select ms-3" id="thriller_rating" name="thriller_rating" required="required" data-error="請選擇設施刺激程度">
-                <option selected disabled value="">請選擇設施刺激程度</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="3">4</option>
-                <option value="3">5</option>
+            <select class="form-select ms-3" id="thriller_rating" name="thriller_rating" value="<?= htmlentities($row['thriller_rating']) ?>" required="required" data-error="請選擇設施刺激程度">                
+            <?php foreach (ThrillerRating::cases() as $thrillerRating) :?>
+                <option value="<?= $thrillerRating->value ?>"><?= $thrillerRating->name ?></option>
+            <?php endforeach ?>
+            
+                
             </select>
             <div class="help-block with-errors text-danger w-100"></div>
             </div>
