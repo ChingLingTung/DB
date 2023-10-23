@@ -85,8 +85,8 @@ $rows3 = $pdo->query($sql3)->fetchAll();
             <div class="help-block with-errors text-danger w-100"></div>
             </div>
             <div class="input-group form-group mb-3">
-            <label for="support_id" class="form-label" >支援種類</label>
-            <select class="form-select ms-3" id="support_id" name="support_id" required="required" data-error="請選擇設施所屬支援種類" >
+            <label for="ride_support_id" class="form-label" >支援種類</label>
+            <select class="form-select ms-3" id="ride_support_id" name="ride_support_id" required="required" data-error="請選擇設施所屬支援種類" >
                 <option selected disabled value="">請選擇支援種類</option>
                 <?php foreach ($rows2 as $r) : ?>
                   <option value="<?= $r['ride_support_id'] ?>"><?= $r['ride_support_name'] ?></option>

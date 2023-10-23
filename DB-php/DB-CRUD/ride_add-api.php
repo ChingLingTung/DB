@@ -61,10 +61,10 @@ $isPass = true;
       $isPass = false;
       $output['errors']['thriller_rating'] = '請選擇設施刺激程度';
     }
-    if(empty($_POST['support_id']))
+    if(empty($_POST['ride_support_id']))
     {
       $isPass = false;
-      $output['errors']['support_id'] = '請選擇設施支援類型';
+      $output['errors']['ride_support_id'] = '請選擇設施支援類型';
     }
   if(empty($_POST['amusement_ride_description']))
     {
@@ -86,7 +86,7 @@ if(! $isPass){
 }
 // sql語法設定，一個欄位對應一個問號，NOW()是sql本身可以取得當下時間的方法，取得時間直接帶入欄位內容
 $sql = "INSERT INTO `amusement_ride`(
-  `amusement_ride_name`, `amusement_ride_img`, `amusement_ride_longitude`, `amusement_ride_latitude`, `ride_category_id`,`thriller_rating`,`support_id`,`created_at`,`theme_id`,`amusement_ride_description`
+  `amusement_ride_name`, `amusement_ride_img`, `amusement_ride_longitude`, `amusement_ride_latitude`, `ride_category_id`,`thriller_rating`,`ride_support_id`,`created_at`,`theme_id`,`amusement_ride_description`
   ) VALUES (
     ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?
   )";
@@ -101,7 +101,7 @@ $stmt->execute([
   $_POST['amusement_ride_latitude'],
   $_POST['ride_category_id'],
   $_POST['thriller_rating'],
-  $_POST['support_id'],
+  $_POST['ride_support_id'],
   $_POST['theme_id'],
   $_POST['amusement_ride_description'],
 ]);
