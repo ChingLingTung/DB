@@ -111,7 +111,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <td><?= htmlentities($r['ride_category_description']) ?></td>
             <td><?= $r['height_requirement'] ?></td>
             <td>
-                <a href="edit.php?ride_category_id=<?= $r['ride_category_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="ride_category_edit.php?ride_category_id=<?= $r['ride_category_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
         </tr>
         <?php endforeach ?>
