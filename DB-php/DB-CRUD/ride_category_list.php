@@ -108,13 +108,8 @@ $rows = $pdo->query($sql)->fetchAll();
             </td>
             <td><?= $r['ride_category_id'] ?></td>
             <td><?= htmlentities($r['ride_category_name']) ?></td>
-            <td><?= $r['height_requirement'] ?></td>
             <td><?= htmlentities($r['ride_category_description']) ?></td>
-
-            <!-- 避免XSS攻擊被惡意植入JS程式導致輸入的資料外洩，將輸入的文字"直接"呈現不做HTML的文字跳脫導致出現HTML標籤執行程式 -->
-            <!-- <td><?= htmlentities($r['address']) ?> -->
-            <!-- 直接去除所有HTML標籤只呈現沒有標籤的內容 -->
-                <!-- <?= strip_tags($r['address']) ?></td> -->
+            <td><?= $r['height_requirement'] ?></td>
             <td>
                 <a href="edit.php?ride_category_id=<?= $r['ride_category_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
