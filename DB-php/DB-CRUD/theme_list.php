@@ -107,13 +107,8 @@ $rows = $pdo->query($sql)->fetchAll();
             <td><?= $r['theme_id'] ?></td>
             <td><?= htmlentities($r['theme_name']) ?></td>
 
-
-            <!-- 避免XSS攻擊被惡意植入JS程式導致輸入的資料外洩，將輸入的文字"直接"呈現不做HTML的文字跳脫導致出現HTML標籤執行程式 -->
-            <!-- <td><?= htmlentities($r['address']) ?> -->
-            <!-- 直接去除所有HTML標籤只呈現沒有標籤的內容 -->
-                <!-- <?= strip_tags($r['address']) ?></td> -->
             <td>
-                <a href="edit.php?theme_id=<?= $r['theme_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="theme_edit.php?theme_id=<?= $r['theme_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
         </tr>
         <?php endforeach ?>
@@ -129,7 +124,7 @@ $rows = $pdo->query($sql)->fetchAll();
     // 設定刪除資料前的提示小視窗，按確定後才會刪除資料
 function deleteItem(theme_id) {
     if (confirm(`確定要刪除編號為 ${theme_id} 的資料嗎?`)) {
-        location.href = 'delete.php?theme_id=' + theme_id;
+        location.href = 'theme_delete.php?theme_id=' + theme_id;
     }
     }</script>
 <?php include "./parts/html_foot.php"?>
