@@ -122,7 +122,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <td><?= $r['ride_category_id'] ?></td>
             <td><?= $r['thriller_rating'] ?></td>
             <td><?= $r['created_at'] ?></td>
-            <td><?= $r['support_id'] ?></td>
+            <td><?= $r['ride_support_id'] ?></td>
             <td><?= $r['theme_id'] ?></td>
             <td><?= htmlentities($r['amusement_ride_description']) ?></td>
 

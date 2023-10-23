@@ -85,7 +85,7 @@ if (empty($amusement_ride_id)) {
                 <label for="ride_category_id" class="form-label" >設施所屬種類</label>
                 <select class="form-select ms-3" id="ride_category_id" name="ride_category_id" value="<?= htmlentities($row['ride_category_id']) ?>" required="required" data-error="請選擇設施種類" >
                     <?php foreach ($rows as $r) :?>
-                    <option value="<?= $r['ride_category_id'] ?>"><?= $r['ride_category_name'] ?></option>
+                    <option value="<?= $r['ride_category_id'] ?>" <?= $r['ride_category_id'] == $row['ride_category_id'] ? 'selected' : "" ?>><?= $r['ride_category_name'] ?></option>
                     <?php
                 endforeach ?>
                 </select>
@@ -95,19 +95,19 @@ if (empty($amusement_ride_id)) {
             <div class="input-group form-group mb-3">
             <label for="thriller_rating" class="form-label" >設施刺激程度</label>
             <select class="form-select ms-3" id="thriller_rating" name="thriller_rating" value="<?= htmlentities($row['thriller_rating']) ?>" required="required" data-error="請選擇設施刺激程度">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="3">4</option>
-                <option value="3">5</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+                <option value="5" >5</option>
             </select>
             <div class="help-block with-errors text-danger w-100"></div>
             </div>
             <div class="input-group form-group mb-3">
-            <label for="support_id" class="form-label" >支援種類</label>
-            <select class="form-select ms-3" id="support_id" name="support_id" value="<?= htmlentities($row['support_id']) ?>" required="required" data-error="請選擇設施所屬支援種類" >
+            <label for="ride_support_id" class="form-label" >支援種類</label>
+            <select class="form-select ms-3" id="ride_support_id" name="ride_support_id" value="<?= htmlentities($row['ride_support_id']) ?>" required="required" data-error="請選擇設施所屬支援種類" >
                 <?php foreach ($rows2 as $r) : ?>
-                  <option value="<?= $r['ride_support_id'] ?>"><?= $r['ride_support_name'] ?></option>
+                  <option value="<?= $r['ride_support_id'] ?>" <?= $r['ride_support_id'] == $row['ride_support_id'] ? 'selected' : "" ?>><?= $r['ride_support_name'] ?></option>
                 <?php
                 endforeach ?>
             </select>
@@ -117,7 +117,7 @@ if (empty($amusement_ride_id)) {
             <label for="theme_id" class="form-label" >設施所屬主題名稱</label>
             <select class="form-select ms-3" id="theme_id" name="theme_id" value="<?= htmlentities($row['theme_id']) ?>" required="required" data-error="請選擇設施所屬主題名稱" >
                 <?php foreach ($rows3 as $r) : ?>
-                  <option value="<?= $r['theme_id'] ?>"><?= $r['theme_name'] ?></option>
+                  <option value="<?= $r['theme_id'] ?>" <?= $r['theme_id'] == $row['theme_id'] ? 'selected' : "" ?>><?= $r['theme_name'] ?></option>
                 <?php
                 endforeach ?>
             </select>
