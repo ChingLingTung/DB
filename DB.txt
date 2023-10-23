@@ -230,3 +230,11 @@ CREATE TABLE `amusement_ride` (
   `amusement_ride_description` varchar(255) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`amusement_ride_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin COMMENT='設施表格';
+
+--1023刪除欄位
+
+ALTER TABLE rides.shop DROP COLUMN shop_type_name;
+
+ALTER TABLE rides.maintenance DROP COLUMN maintenance_category_name;
+ALTER TABLE rides.maintenance DROP COLUMN amusement_ride_name;
+
