@@ -2,7 +2,7 @@
 // 資料庫連線
 require './parts/connect_db.php';
 $pageName='edit';
-$title='修改資料';
+$title='編輯';
 $formName='ride';
 $formTitle='設施介紹';
 // 取得資料的主鍵，若此資料主鍵存在則轉成整數，沒有則將值設定為0
@@ -23,7 +23,7 @@ if (empty($amusement_ride_id)) {
     // 直接結束這個程式
     exit;
     }
-    $title='編輯';
+    
 
     $sql1 = "SELECT ride_category_id,ride_category_name FROM ride_category";
     $sql2 = "SELECT ride_support_id,ride_support_name FROM ride_support";
