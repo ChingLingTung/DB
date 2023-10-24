@@ -33,7 +33,7 @@ $height_requirement = $_POST['height_requirement'];
 // strlen(): 查看字串的長度(英數字)
 // mb_strlen(): 查看字串的長度(中文韓文日文等非英系字)
 $isPass = true;
-// 檢查信箱資料格式，如果格式錯誤，回報email格式錯誤
+// 檢查資料格式，如果格式錯誤，回報格式錯誤
 if(empty($ride_category_name)){
   $isPass=false;
 }

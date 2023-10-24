@@ -210,7 +210,7 @@ if (empty($amusement_ride_id)) {
             return;
         }
         // 建立只有資料的表單
-        const fd = new FormData(document.form1);
+        const fd = new FormData(document.ride_form);
         // 設定ajax的送出方式fetch('資料運送的目的地', {送出方式}
         fetch('ride_edit-api.php', {
             method: 'POST',
