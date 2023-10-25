@@ -1,20 +1,17 @@
 <?php
 require './parts/connect_db.php';
-
 $pageName = 'login';
-$formtitle = '登入';
-
-
+$title = '登入';
+$formTitle = '登入頁面'
 ?>
 <?php
 
 
 $users = [
-
   '123456' => [
     'hash' => '$2y$10$nFQ6d.SgqFcujeQY6Swq6eQCGEigPV46BZYvs9JjJK4at7vc92kjG',
-    'nickname' => '123456',
-  ],
+    'nickname' => '管理員某某',
+  ]
 ];
 
 # 先判斷是否有表單資料
@@ -40,40 +37,52 @@ if (isset($_POST['account'])) {
   }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 設定標題跟著改變 -->
-  <title>登入</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  
-</head>
-<body>
 
+<?php include "./parts/html_head.php"?>
 
-  <?php if (isset($_SESSION['admin'])) : ?>
-    <h2 class="ms-3"><?= $_SESSION['admin']['nickname'] ?> 您好</h2>
+<?php if (isset($_SESSION['admin'])) : ?>
+    <h2><?= $_SESSION['admin']['nickname'] ?> 您好</h2>
     <p><a href="whole_logout.php">登出</a></p>
   <?php else : ?>
     <div style="color:red"><?= $errInfo ?? '' ?></div>
-    <div class="container">
-      <h1 class="text-center mt-3 mb-3">遊樂園後台系統</h1>
-    <div class="border border-primary-subtle border-4 rounded p-3 mb-3 border-opacity-50 h-100 mt-3">
-        <h5 class="mb-5">管理員登入</h5>
-          <form method="post">
-            <input type="text" name="account" class="form-control" placeholder="帳號" value="<?= htmlentities($_POST['account'] ?? '') ?>">
-            <br>
-            <input type="password" name="password" class="form-control" placeholder="密碼" value="<?= htmlentities($_POST['password'] ?? '') ?>">
-            <br>
-          <button class='btn btn-primary'>登入</button>
-      </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <h1 class="text-center mt-3 mb-3">遊樂園後台系統</h1>
+            <div class="card border border-primary-subtle border-4 rounded border-opacity-50 h-100 ">
+                <div class="card-body">
+                    <h5 class="card-title">管理員登入</h5>
+                    <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
+                    為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
+                    <form method="post" name="form1" onsubmit="sendData(event)" >
+                    <!-- form標籤裡要加上enctype="multipart/form-data"的設定資料才能傳送出去，這邊透過下方script內設定 -->
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">帳號</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                            <div class="form-text"></div>
+                        </div>            
+                        <div class="mb-3">
+                            <label for="password" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <div class="form-text"></div>
+                        </div>            
+                        <button type="submit" class="btn btn-primary">登入</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <?php endif; ?>
+</div>
+<?php endif; ?>
 
-</body>
 
-</html>
+
+<?php include "./parts/scripts.php"?>
+<script>
+
+
+
+</script>
+<?php include "./parts/html_foot.php"?>

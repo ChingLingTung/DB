@@ -6,38 +6,39 @@ $title='新增';
 ?>
 
 <?php include "./parts/html_head.php"?>
-<?php include "./parts/navbar.php"?>
+
 
 <div class="container">
-    <div class="row">
-        <div class="col-6">
-        <!-- 從bootstrap抓取Forms的overview和cards做修改 -->
-        <div class="card">
-        <div class="card-body">
-        <h5 class="card-title">會員登入</h5>
-        <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
-        為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
-        <form name="form1" onsubmit="sendData(event)" >
-            <!-- form標籤裡要加上enctype="multipart/form-data"的設定資料才能傳送出去，這邊透過下方script內設定 -->
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <h1 class="text-center mt-3 mb-3">遊樂園後台系統</h1>
+            <div class="card border border-primary-subtle border-4 rounded border-opacity-50 h-100 ">
+                <div class="card-body">
+                    <h5 class="card-title">管理員登入</h5>
+                    <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
+                    為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
+                    <form name="form1" onsubmit="sendData(event)" >
+                    <!-- form標籤裡要加上enctype="multipart/form-data"的設定資料才能傳送出去，這邊透過下方script內設定 -->
 
-            <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="text" class="form-control" id="email" name="email">
-            <div class="form-text"></div>
-            </div>            
-            <div class="mb-3">
-            <label for="password" class="form-label">password</label>
-            <input type="text" class="form-control" id="password" name="password">
-            <div class="form-text"></div>
-            </div>            
-
-            <button type="submit" class="btn btn-primary">登入</button>
-        </form>
-    </div>
-</div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">帳號</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                            <div class="form-text"></div>
+                        </div>            
+                        <div class="mb-3">
+                            <label for="password" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <div class="form-text"></div>
+                        </div>            
+                        <button type="submit" class="btn btn-primary">登入</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+    
+
 
 <?php include "./parts/scripts.php"?>
 <script>
@@ -74,25 +75,25 @@ $title='新增';
         // 預設檢查通過(任一不通過即為false)
         let isPass = true; 
         // 設定若姓名欄位內容長度小於二不通過檢查
-        if (name_in.value.length < 2) {
-            isPass = false;
-            // 將姓名欄位輸入框標示為紅色
-            name_in.style.border = '2px solid red';
-            // 設定姓名欄位框下方提示文字
-            name_in.nextElementSibling.innerHTML = '請填寫正確的姓名';
-        }
-        // 如果信箱輸入內容不符合格式，標示紅框及提示文字
-        if (!validateEmail(email_in.value)) {
-            isPass = false;
-            email_in.style.border = '2px solid red';
-            email_in.nextElementSibling.innerHTML = '請填寫正確的Email';
-        }
-        // 如果手機內容有輸入但內容不符合格式，標示紅框及提示文字，若未填則不判斷
-        if (mobile_in.value && !validateMobile(mobile_in.value)) {
-            isPass = false;
-            mobile_in.style.border = '2px solid red';
-            mobile_in.nextElementSibling.innerHTML = '請填寫正確的手機號碼';
-        }
+        // if (name_in.value.length < 2) {
+        //     isPass = false;
+        //     // 將姓名欄位輸入框標示為紅色
+        //     name_in.style.border = '2px solid red';
+        //     // 設定姓名欄位框下方提示文字
+        //     name_in.nextElementSibling.innerHTML = '請填寫正確的姓名';
+        // }
+        // // 如果信箱輸入內容不符合格式，標示紅框及提示文字
+        // if (!validateEmail(email_in.value)) {
+        //     isPass = false;
+        //     email_in.style.border = '2px solid red';
+        //     email_in.nextElementSibling.innerHTML = '請填寫正確的Email';
+        // }
+        // // 如果手機內容有輸入但內容不符合格式，標示紅框及提示文字，若未填則不判斷
+        // if (mobile_in.value && !validateMobile(mobile_in.value)) {
+        //     isPass = false;
+        //     mobile_in.style.border = '2px solid red';
+        //     mobile_in.nextElementSibling.innerHTML = '請填寫正確的手機號碼';
+        // }
         // 如果以上任一檢查不通過則不發送資料
         if (!isPass) {
             return;
